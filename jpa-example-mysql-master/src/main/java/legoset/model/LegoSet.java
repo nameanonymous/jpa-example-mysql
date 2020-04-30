@@ -15,7 +15,6 @@ import jpa.YearConverter;
 public class LegoSet {
 
     @Id
-    @GeneratedValue
     private String number;
 
     @Column(nullable=false)

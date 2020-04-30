@@ -24,7 +24,7 @@ public class Main {
             em.getTransaction().begin();
             em.persist(new LegoSet("54321","Service Truck",Year.of(2015),233));
             em.persist(new LegoSet("64875","Imperial Fighter",Year.of(2018),519));
-            em.persist(new LegoSet("54321","London",Year.of(2017),468));
+            em.persist(new LegoSet("59631","London",Year.of(2017),468));
 
             em.getTransaction().commit();
         } finally {
@@ -37,7 +37,7 @@ public class Main {
     private static List<LegoSet> getLegoSets() {
         EntityManager em = emf.createEntityManager();
         try{
-            return  em.createQuery("SELECT l FROM LEGOSET l ORDER BY l.number",LegoSet.class).getResultList();
+            return  em.createQuery("SELECT l FROM LegoSet l ORDER BY l.number",LegoSet.class).getResultList();
         } finally {
             em.close();
         }
@@ -46,7 +46,7 @@ public class Main {
     private static Long getTotalPieces() {
         EntityManager em = emf.createEntityManager();
         try{
-            return  em.createQuery("SELECT SUM(pieces) FROM LEGOSET l",Long.class).getSingleResult();
+            return  em.createQuery("SELECT SUM(pieces) FROM LegoSet l",Long.class).getSingleResult();
         } finally {
             em.close();
         }

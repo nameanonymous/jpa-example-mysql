@@ -24,31 +24,38 @@ public class LegoSetService {
 
 
     public LegoSet create(String number, String name, Year year, int pieces) {
-        // TODO
-       return null;
+        LegoSet legoset = new LegoSet(number,name,year,pieces);
+        em.persist(legoset);
+       return legoset;
     }
 
     public Optional<LegoSet> find(String number) {
         // TODO
-        return null;
+        return Optional.ofNullable(em.find(LegoSet.class,number));
     }
 
     public List<LegoSet> findAll() {
         // TODO
-        return null;
+        return em.createQuery("SELECT l FROM LegoSet l ORDER BY l.number",LegoSet.class).getResultList();
     }
 
     public Long totalPieces() {
         // TODO
-        return null;
+        return em.createQuery("SELECT SUM(pieces) FROM LegoSet l",Long.class).getSingleResult();
     }
 
     public void delete(String number) {
         // TODO
+        find(number).ifPresent(LegoSet ->
+        {
+            em.remove(LegoSet);
+        });
     }
 
     public void deleteAll() {
         // TODO
+        long count = em.createQuery("DELETE FROM LegoSet").executeUpdate();
+        logger.info("Deleted {} LEGO set(s)",count);
     }
 
     public static void main(String[] args) {
